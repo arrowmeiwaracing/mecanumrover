@@ -1,0 +1,267 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
+<script>
+/*
+Copyright (c) 2016 arrowmeiwaracing
+Released under the MIT license
+https://github.com/arrowmeiwaracing/mecanumrover/blob/master/LICENSE
+*/
+
+window.onload = function(){
+
+  var nMouse = [];
+  var hzSendVal = {}; /* old send data hashmap*/
+
+  var g1 = document.getElementById('g1');
+  var m1 = document.getElementById('m1');
+
+  /* pinch, DnD stop */
+  document.addEventListener('touchstart', function(e){
+     e.preventDefault();
+  }, false);
+
+  g1.addEventListener('touchstart', function(e){
+     var tch1 = e.changedTouches;
+
+     for (var i = 0; i < tch1.length; i++) {
+        var p = document.getElementById('zu1').createSVGPoint();
+        p.x = tch1[i].clientX;
+        p.y = tch1[i].clientY;
+        var m = tch1[i].target.getScreenCTM();
+        p = p.matrixTransform(m.inverse());
+        var _item = {};
+        _item.cX = p.x - parseInt(tch1[i].target.getAttribute('cx'));
+        _item.cY = p.y - parseInt(tch1[i].target.getAttribute('cy'));
+        nMouse[tch1[i].identifier] = _item;
+        tch1[i].target.setAttribute('stroke-width', 3);
+     };
+  }, false);
+
+  g1.addEventListener('touchmove', function(e){
+     var sx1 = '=>';
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        var p = document.getElementById('zu1').createSVGPoint();
+        p.x = tch1[i].clientX;
+        p.y = tch1[i].clientY;
+        var m = tch1[i].target.getScreenCTM();
+        p = p.matrixTransform(m.inverse());
+        tch1[i].target.setAttribute('cy', p.y - nMouse[tch1[i].identifier].cY);
+        sendData(tch1[i].target.id, (p.y - nMouse[tch1[i].identifier].cY));
+        sx1 += ':' + tch1[i].identifier + '=' + tch1[i].target.id;
+     };
+     m1.firstChild.nodeValue = sx1;
+  }, false);
+
+  g1.addEventListener('touchend', function(e){
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        tch1[i].target.setAttribute('stroke-width', 0);
+        tch1[i].target.setAttribute('cy', 150);
+        sendData(tch1[i].target.id, 150);
+        delete nMouse[tch1[i].identifier];
+     };
+  }, false);
+
+  g1.addEventListener('touchcancel', function(e){
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        tch1[i].target.setAttribute('stroke-width', 0);
+        tch1[i].target.setAttribute('cy', 150);
+        sendData(tch1[i].target.id, 150);
+        delete nMouse[tch1[i].identifier];
+     };
+  }, false);
+
+  var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+
+  connection.addEventListener('open', function() {
+     connection.send('Connect ' + new Date());
+  }, false);
+
+  connection.addEventListener('error', function(error) {
+     console.log('WebSocket Error ', error);
+     m1.firstChild.nodeValue = error;
+  }, false);
+
+  connection.addEventListener('message', function(e) {
+     console.log('Server: ', e.data);
+     m1.firstChild.nodeValue = e.data;
+  }, false);
+
+  function sendData(id, val) {
+     if(val < 0) {
+        val = 0;
+     } else if(val > 300){
+        val = 300;
+     }
+     var _v = Math.floor(val / 10); /* kanndo */
+     /* old and new equal value then not send packet. */
+     if (_v != hzSendVal[id]) {
+         connection.send('#' + id + ':' + _v);
+         hzSendVal[id] = _v;
+     };
+  };
+
+}
+</script>
+</head>
+<body>
+<div>
+<span id='msg1'></span></br>
+<span id='msg2'></span></br>
+<span id='msg3'></span></br>
+<span id='msg4'></span></br>
+<span id='msg5'></span></br>
+</div>
+<div>
+ <svg xmlns='http://www.w3.org/2000/svg' id='zu1' width='100%' height='100%' viewBox='0 0 400 300'
+  style='stroke-width: 0px; background-color: #cccccc'>
+ <g id='g1'>
+ <text id='m1' x='0' y='10' font-size='10' fill='black'>Connecting....</text>
+ <circle id='c1' r='50' cx='50' cy='150' fill='green' stroke='black' stroke-width='0' />
+ <circle id='c2' r='50' cx='150' cy='150' fill='orange' stroke='black' stroke-width='0' />
+ <circle id='c3' r='50' cx='250' cy='150' fill='red' stroke='black' stroke-width='0' />
+ <circle id='c4' r='50' cx='350' cy='150' fill='blue' stroke='black' stroke-width='0' />
+ </g>
+ </svg>
+<div>
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
+<script>
+/*
+Copyright (c) 2016 arrowmeiwaracing
+Released under the MIT license
+https://github.com/arrowmeiwaracing/mecanumrover/blob/master/LICENSE
+*/
+
+window.onload = function(){
+
+  var nMouse = [];
+  var hzSendVal = {}; /* old send data hashmap*/
+
+  var g1 = document.getElementById('g1');
+  var m1 = document.getElementById('m1');
+
+  /* pinch, DnD stop */
+  document.addEventListener('touchstart', function(e){
+     e.preventDefault();
+  }, false);
+
+  g1.addEventListener('touchstart', function(e){
+     var tch1 = e.changedTouches;
+
+     for (var i = 0; i < tch1.length; i++) {
+        var p = document.getElementById('zu1').createSVGPoint();
+        p.x = tch1[i].clientX;
+        p.y = tch1[i].clientY;
+        var m = tch1[i].target.getScreenCTM();
+        p = p.matrixTransform(m.inverse());
+        var _item = {};
+        _item.cX = p.x - parseInt(tch1[i].target.getAttribute('cx'));
+        _item.cY = p.y - parseInt(tch1[i].target.getAttribute('cy'));
+        nMouse[tch1[i].identifier] = _item;
+        tch1[i].target.setAttribute('stroke-width', 3);
+     };
+  }, false);
+
+  g1.addEventListener('touchmove', function(e){
+     var sx1 = '=>';
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        var p = document.getElementById('zu1').createSVGPoint();
+        p.x = tch1[i].clientX;
+        p.y = tch1[i].clientY;
+        var m = tch1[i].target.getScreenCTM();
+        p = p.matrixTransform(m.inverse());
+        tch1[i].target.setAttribute('cy', p.y - nMouse[tch1[i].identifier].cY);
+        sendData(tch1[i].target.id, (p.y - nMouse[tch1[i].identifier].cY));
+        sx1 += ':' + tch1[i].identifier + '=' + tch1[i].target.id;
+     };
+     m1.firstChild.nodeValue = sx1;
+  }, false);
+
+  g1.addEventListener('touchend', function(e){
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        tch1[i].target.setAttribute('stroke-width', 0);
+        tch1[i].target.setAttribute('cy', 150);
+        sendData(tch1[i].target.id, 150);
+        delete nMouse[tch1[i].identifier];
+     };
+  }, false);
+
+  g1.addEventListener('touchcancel', function(e){
+     var tch1 = e.changedTouches;
+     for (var i = 0; i < tch1.length; i++) {
+        tch1[i].target.setAttribute('stroke-width', 0);
+        tch1[i].target.setAttribute('cy', 150);
+        sendData(tch1[i].target.id, 150);
+        delete nMouse[tch1[i].identifier];
+     };
+  }, false);
+
+  var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+
+  connection.addEventListener('open', function() {
+     connection.send('Connect ' + new Date());
+  }, false);
+
+  connection.addEventListener('error', function(error) {
+     console.log('WebSocket Error ', error);
+     m1.firstChild.nodeValue = error;
+  }, false);
+
+  connection.addEventListener('message', function(e) {
+     console.log('Server: ', e.data);
+     m1.firstChild.nodeValue = e.data;
+  }, false);
+
+  function sendData(id, val) {
+     if(val < 0) {
+        val = 0;
+     } else if(val > 300){
+        val = 300;
+     }
+     var _v = Math.floor(val / 10); /* kanndo */
+     /* old and new equal value then not send packet. */
+     if (_v != hzSendVal[id]) {
+         connection.send('#' + id + ':' + _v);
+         hzSendVal[id] = _v;
+     };
+  };
+
+}
+</script>
+</head>
+<body>
+<div>
+<span id='msg1'></span></br>
+<span id='msg2'></span></br>
+<span id='msg3'></span></br>
+<span id='msg4'></span></br>
+<span id='msg5'></span></br>
+</div>
+<div>
+ <svg xmlns='http://www.w3.org/2000/svg' id='zu1' width='100%' height='100%' viewBox='0 0 400 300'
+  style='stroke-width: 0px; background-color: #cccccc'>
+ <g id='g1'>
+ <text id='m1' x='0' y='10' font-size='10' fill='black'>Connecting....</text>
+ <circle id='c1' r='50' cx='50' cy='150' fill='green' stroke='black' stroke-width='0' />
+ <circle id='c2' r='50' cx='150' cy='150' fill='orange' stroke='black' stroke-width='0' />
+ <circle id='c3' r='50' cx='250' cy='150' fill='red' stroke='black' stroke-width='0' />
+ <circle id='c4' r='50' cx='350' cy='150' fill='blue' stroke='black' stroke-width='0' />
+ </g>
+ </svg>
+<div>
+</body>
+</html>
+>>>>>>> 70d51fa834b2b40fe29244ad6c6572da5e99fa63

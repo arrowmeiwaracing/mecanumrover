@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+{
+ "ssid":     "YOUR_WIFI_SSID",
+ "password": "YOUR_WIFI_PASSWORD"
+}
+=======
+{
+ "ssid":     "YOUR_WIFI_SSID",
+ "password": "YOUR_WIFI_PASSWORD"
+}
+>>>>>>> 70d51fa834b2b40fe29244ad6c6572da5e99fa63
