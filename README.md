@@ -1,20 +1,20 @@
 # mecanumrover
-This is a mecanum rover control application.
-use for esp8266(esp-wroom-02)-arduino sketch.
-mecanum rover is this URL.
+This is a mecanum rover control application.  
+use for esp8266(esp-wroom-02)-arduino sketch.  
+mecanum rover is this URL.  
 http://www.thingiverse.com/thing:1622028
 
-rover link websocket.
-rover(esp8266 running web server port:80 and websocket server port:81)
- -<wifi>-your wifi rooter-<wifi>-cliant(tested android chrome)
+rover link websocket.  
+rover(esp8266 running web server port:80 and websocket server port:81)  
+ -<wifi>-your wifi rooter-<wifi>-cliant(tested android chrome)  
 
-esp8266-arduino Ver 2.0.0 over.
-add library:
-https://github.com/Links2004/arduinoWebSockets
-https://github.com/me-no-dev/ESPAsyncTCP
-https://github.com/bblanchon/ArduinoJson
+esp8266-arduino Ver 2.0.0 over.  
+add library:  
+https://github.com/Links2004/arduinoWebSockets  
+https://github.com/me-no-dev/ESPAsyncTCP  
+https://github.com/bblanchon/ArduinoJson  
 
-for Japanese.
+for Japanese.  
 これはメカナムホイールローバーのコントロール用アプリケーションです。
 esp8266(esp-wroom-02)arduino用のsketchです。
 esp8266用arduino環境(Ver 2.0.0以上)とライブラリが必要です。

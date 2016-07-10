@@ -209,8 +209,3 @@ void loop() {
   webSocket.loop();
   server.handleClient();
 }
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 70d51fa834b2b40fe29244ad6c6572da5e99fa63
